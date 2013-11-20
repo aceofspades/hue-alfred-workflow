@@ -169,6 +169,11 @@ def send(query):
 
 	method = 'PUT'
 
+	if query.get('_multi'):
+		for part in query['data'].split(','):
+			send(part)
+		return
+
 	# TODO(2013-07-14): Consider improvements to the way filter communicates with
 	# this request script.  For example, set "group", "light" keys on the filter arg,
 	# instead of building the partial URL.
